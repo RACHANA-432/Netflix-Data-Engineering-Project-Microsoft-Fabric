@@ -34,22 +34,6 @@ Lakehouse - Gold Layer (Aggregated Data)
 
 ---
 
-## 📂 Data Source
-
-Netflix dataset containing:
-
-* Title
-* Type (Movie/TV Show)
-* Director
-* Cast
-* Country
-* Date Added
-* Release Year
-* Rating
-* Duration
-* Genre
-
----
 
 ## Medallion Architecture
 
@@ -63,7 +47,6 @@ Netflix dataset containing:
   Files/netflix/bronze/netflix_titles.csv
   ```
 
----
 
 ### Silver Layer
 
@@ -79,7 +62,7 @@ Netflix dataset containing:
   Tables/silver_netflix
   ```
 
----
+
 
 ### Gold Layer
 
@@ -158,14 +141,6 @@ Tables/pipeline_logs
   
 ---
 
-## Challenges Faced
-
-* Handling ADLS authentication and permissions
-* Managing file formats during ingestion (Binary vs CSV)
-* Debugging Spark session delays
-* Correctly configuring Lakehouse connections
-
----
 
 ## Future Enhancements
 
