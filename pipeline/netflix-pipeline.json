@@ -1,10 +1,10 @@
 {
-    "name": "netflix-pipeline",
-    "objectId": "13966edb-9d11-454c-95c5-03dae81fbe86",
+    "name": "new_netflix_pipeline",
+    "objectId": "92e76e37-8ad6-4b48-8394-c4e5980929af",
     "properties": {
         "activities": [
             {
-                "name": "adls_to_lakehouse",
+                "name": "adls-to-lakehouse",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {
@@ -36,25 +36,25 @@
                                 }
                             },
                             "externalReferences": {
-                                "connection": "43d169be-471e-453b-93a0-81410cb47ddc"
+                                "connection": "2f257904-f4e0-4bf4-9fd6-a66f9cb2c579"
                             }
                         }
                     },
                     "sink": {
                         "type": "BinarySink",
                         "storeSettings": {
-                            "type": "AzureBlobStorageWriteSettings"
+                            "type": "LakehouseWriteSettings"
                         },
                         "datasetSettings": {
                             "annotations": [],
                             "linkedService": {
-                                "name": "netflix_lakehouse",
+                                "name": "lakehouse_conn_1",
                                 "properties": {
                                     "annotations": [],
                                     "type": "Lakehouse",
                                     "typeProperties": {
                                         "workspaceId": "71c259b2-1a54-45f8-ae73-ab6adfe68de3",
-                                        "artifactId": "ac33fe39-b0c8-478f-93cd-30ce87991deb",
+                                        "artifactId": "8f9f9cea-7a43-421b-98e1-f12744cb5d90",
                                         "rootFolder": "Files"
                                     }
                                 }
@@ -62,10 +62,9 @@
                             "type": "Binary",
                             "typeProperties": {
                                 "location": {
-                                    "type": "AzureBlobStorageLocation",
+                                    "type": "LakehouseLocation",
                                     "fileName": "netflix_data.csv",
-                                    "folderPath": "bronze",
-                                    "container": "netflix"
+                                    "folderPath": "netflix/ bronze"
                                 }
                             }
                         }
@@ -74,11 +73,11 @@
                 }
             },
             {
-                "name": "transform_netflix_data",
+                "name": "transformation",
                 "type": "TridentNotebook",
                 "dependsOn": [
                     {
-                        "activity": "adls_to_lakehouse",
+                        "activity": "adls-to-lakehouse",
                         "dependencyConditions": [
                             "Succeeded"
                         ]
@@ -98,6 +97,6 @@
             }
         ],
         "lastModifiedByObjectId": "23e96b82-24c5-459a-bf13-c52fdb93039b",
-        "lastPublishTime": "2026-03-20T07:14:33Z"
+        "lastPublishTime": "2026-04-20T06:20:29Z"
     }
 }
