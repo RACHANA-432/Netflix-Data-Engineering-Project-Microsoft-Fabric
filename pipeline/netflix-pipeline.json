@@ -1,0 +1,103 @@
+{
+    "name": "netflix-pipeline",
+    "objectId": "13966edb-9d11-454c-95c5-03dae81fbe86",
+    "properties": {
+        "activities": [
+            {
+                "name": "adls_to_lakehouse",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "netflix_data.csv",
+                                    "folderPath": "raw",
+                                    "fileSystem": "netflix"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "43d169be-471e-453b-93a0-81410cb47ddc"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "netflix_lakehouse",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "71c259b2-1a54-45f8-ae73-ab6adfe68de3",
+                                        "artifactId": "ac33fe39-b0c8-478f-93cd-30ce87991deb",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobStorageLocation",
+                                    "fileName": "netflix_data.csv",
+                                    "folderPath": "bronze",
+                                    "container": "netflix"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "transform_netflix_data",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "adls_to_lakehouse",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "31949021-d31d-4e6e-b335-179036b7ddb6",
+                    "workspaceId": "71c259b2-1a54-45f8-ae73-ab6adfe68de3"
+                }
+            }
+        ],
+        "lastModifiedByObjectId": "23e96b82-24c5-459a-bf13-c52fdb93039b",
+        "lastPublishTime": "2026-03-20T07:14:33Z"
+    }
+}
