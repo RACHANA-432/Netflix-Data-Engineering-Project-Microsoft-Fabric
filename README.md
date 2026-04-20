@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project demonstrates an **end-to-end data engineering pipeline** built using Microsoft Fabric. The pipeline ingests raw Netflix dataset from Azure Data Lake Storage (ADLS), processes it using PySpark notebooks, and implements **Medallion Architecture (Bronze, Silver, Gold)**.
+This project demonstrates an **end-to-end data engineering pipeline** built using Microsoft Fabric. The pipeline ingests raw Netflix dataset from Azure Data Lake Storage (ADLS), processes it using PySpark notebooks, implements **Medallion Architecture (Bronze, Silver, Gold)** and visualizes insights using Power BI.
 
 ---
 
@@ -20,6 +20,8 @@ Notebook (PySpark Transformations)
 Lakehouse - Silver Layer (Cleaned Data)
         ↓
 Lakehouse - Gold Layer (Aggregated Data)
+        ↓
+Power BI Dashboard
         
 ```
 
@@ -129,6 +131,15 @@ Tables/pipeline_logs
 * Easy debugging
 * Execution tracking
 * Production-level monitoring
+
+---
+
+## Power BI Dashboard
+
+Power BI is used to create interactive dashboards using Gold layer tables.
+
+<img width="1918" height="911" alt="Netflix Analytics Report" src="https://github.com/user-attachments/assets/2b20e99a-2fe9-4c21-ab04-955631697a07" />
+
 
 ---
 
